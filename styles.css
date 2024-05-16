@@ -1,0 +1,107 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+#game-container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+header {
+    background-color: #68cf6c;
+    color: white;
+    padding: 1rem 0;
+}
+
+#info {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+
+#timer, #score {
+    font-size: 1.5em;
+}
+
+main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+#game-board {
+    width: 70%;
+    height: 400px;
+    background-color: white;
+    border: 1px solid #ccc;
+    position: relative;
+    background-image: url('background.jpg'); /*Hier kunnen we een achtergrond invoegen voor ons spel?
+                                                heb wel nog geen.*/
+    background-size: cover; 
+    background-position: center; 
+}
+
+#hint-container {
+    width: 25%;
+}
+
+button {
+    background-color: #68cf6c;
+    color: white;
+    padding: 1rem 1.5rem;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+footer {
+    margin-top: 1.5rem;
+}
+
+.hidden {
+    display: none;
+}
+
+#victory {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-over {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-item {
+    width: 3rem;
+    height: 3rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    cursor: pointer;
+}
