@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berghoff Kitchen Quest</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <header>
+            <h1>Berghoff Spel</h1>
+            <div id="info">
+                <div id="timer">Tijd: 60</div>
+                <div id="score">Score: 0</div>
+            </div>
+        </header>
+        <main>
+            <div id="game-board"></div>
+            <div id="hint-container">
+                <button id="hint-button">Hint</button> <!-- Heb voorlopig een hint functie gemaakt in plaats van een tasks tabke. -->
+                <p id="hint-text"></p>
+            </div>
+        </main>
+        <footer>
+            <p>Maak het gerecht voor het spel te winnen</p>
+        </footer>
+    </div>
+    <div id="game-over" class="hidden">
+        <h2>Game Over</h2>
+        <p>Het duurde te lang!</p>
+        <button id="restart-button">Herstart</button>
+    </div>
+    <div id="victory" class="hidden">
+        <h2>Congratulations!</h2>
+        <p>You collected all the items!</p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
