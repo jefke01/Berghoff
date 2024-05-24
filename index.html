@@ -3,40 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berghoff Kitchen Quest</title>
+    <title>Berghoff Kook spelletje</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <header>
+        <h1>Berghoff Cooking Game</h1>
+    </header>
     <div id="game-container">
-        <header>
-            <h1>Berghoff Spel</h1>
-            <div id="info">
-                <div id="timer">Tijd: 60</div>
-                <div id="score">Score: 0</div>
-            </div>
-        </header>
+        <div id="info">
+            <div id="timer">Time: 60</div>
+            <div id="score">Score: 0</div>
+        </div>
         <main>
-            <div id="game-board"></div>
-            <div id="hint-container">
-                <button id="hint-button">Hint</button> <!-- Heb voorlopig een hint functie gemaakt in plaats van een tasks tabke. -->
-                <p id="hint-text"></p>
+            <div id="game-board"></div> <!--Hier zal het spel zelf komen, ons "canvas" zeg maar-->
+            <div id="control-panel"> <!--Dit is hoe je alles kunt besturen-->
+                <button id="tools-button">Tools</button>
+                <button id="ingredients-button">Ingredients</button>
+                <div id="tools-menu" class="hidden">
+                    <!-- Hier zullen dus die tools aangemaakt worden, messen potten pannen -->
+                </div>
+                <div id="ingredients-menu" class="hidden">
+                    <!-- Alle ingredienten komen hier, moeten wel nog een gerecht kiezen -->
+                </div>
             </div>
         </main>
         <footer>
-            <p>Maak het gerecht voor het spel te winnen</p>
+            <button id="restart-button">Restart game</button>
         </footer>
+        <div id="game-over" class="hidden">
+            <h2>Game Over</h2>
+            <button id="game-over-restart-button">Restart</button>
+        </div>
+        <div id="victory" class="hidden">
+            <h2>Dish Completed!</h2>
+            <button id="victory-restart-button">Restart</button>
+        </div>
     </div>
-    <div id="game-over" class="hidden">
-        <h2>Game Over</h2>
-        <p>Het duurde te lang!</p>
-        <button id="restart-button">Herstart</button>
-    </div>
-    <div id="victory" class="hidden">
-        <h2>Congratulations!</h2>
-        <p>You collected all the items!</p>
-    </div>
-    <script src="script.js"></script>
+    <script src="/script.js"></script>
 </body>
 </html>
-
-test

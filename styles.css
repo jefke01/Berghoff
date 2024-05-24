@@ -10,34 +10,33 @@ body {
     width: 80%;
     margin: auto;
     text-align: center;
+    position: relative;
 }
 
 header {
     background-color: #68cf6c;
     color: white;
     padding: 1rem 0;
+    text-align: center;
 }
 
 #info {
     display: flex;
     justify-content: space-between;
     padding: 0 1rem;
-}
-
-#timer, #score {
-    font-size: 1.5em;
+    font-size: 1.5rem;
 }
 
 main {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin: 1rem 0;
 }
 
 #game-board {
     width: 70%;
-    height: 400px;
+    height: 600px;
     background-color: white;
     border: 1px solid #ccc;
     position: relative;
@@ -47,8 +46,11 @@ main {
     background-position: center; 
 }
 
-#hint-container {
+#control-panel {
     width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 button {
@@ -57,51 +59,55 @@ button {
     padding: 1rem 1.5rem;
     border: none;
     cursor: pointer;
+    margin: 1rem 0;
 }
 
 button:hover {
     background-color: #45a049;
 }
 
-footer {
-    margin-top: 1.5rem;
-}
-
 .hidden {
     display: none;
 }
 
-#victory {
+#game-over, #victory {
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-#game-over {
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.game-item {
-    width: 3rem;
-    height: 3rem;
-    background-size: contain;
-    background-repeat: no-repeat;
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+
+.menu-item {
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 5px;
     cursor: pointer;
+    position: relative;
+}
+
+.menu-item:hover .tooltip {
+    display: block;
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    width: 200px;
+    z-index: 1000;
+    transition: opacity 0.3s;
 }
