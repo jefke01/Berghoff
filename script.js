@@ -11,6 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const ingredientsMenu = document.querySelector('#ingredients-menu');
     const gameOverRestartButton = document.querySelector('#game-over-restart-button');
     const victoryRestartButton = document.querySelector('#victory-restart-button');
+    const startScreen = document.querySelector('#start-screen');
+    const explanationScreen = document.querySelector('#explanation');
+    const startButton = document.querySelector('#start-button');
+    const proceedButton = document.querySelector('#proceed-button');
+    const header = document.querySelector('header');
+    const gameContainer = document.querySelector('#game-container');
 
     let timeLeft;
     let score;
@@ -21,14 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Chef Knife', img: 'knife.png', detail: 'A sharp knife for cutting ingredients with precision.' },
         { name: 'Cooking Pot', img: 'pot.png', detail: 'A pot for boiling and cooking various ingredients.' },
         { name: 'Pan', img: 'pan.png', detail: 'A non stick pan excellent for cooking stuff without needing a fat.' },
-        // We kunnen meer toevoegen, zal ook nodig zijn
     ];
 
     const ingredients = [
         { name: 'Tomato', img: 'tomato.png' },
         { name: 'Onion', img: 'onion.png' },
         { name: 'Garlic', img: 'garlic.png' },
-        // Zelfde als de tools
     ];
 
     const startGame = function() {
@@ -40,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         hideScreens();
         loadMenus();
         startTimer();
+        showGameElements();
     };
 
     const startTimer = function() {
@@ -65,10 +70,17 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreElement.textContent = `Score: ${score}`;
     };
 
+    const proceed = function() {
+        const explanationChildren = explanationScreen.children;
+        for (let i = 0; i < explanationChildren.length; i++) {
+            explanationChildren[i].classList.add('hidden');
+        }
+    };
+
     const loadMenus = function() {
         toolsMenu.innerHTML = '';
         ingredientsMenu.innerHTML = '';
-        
+
         tools.forEach(tool => {
             const toolElement = document.createElement('div');
             toolElement.classList.add('menu-item');
@@ -94,12 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const selectTool = function(tool) {
-        // Hierin steken we wat er gebeurdt als we op een tool klikken
         console.log(`Selected tool: ${tool.name}`);
     };
 
     const selectIngredient = function(ingredient) {
-        // Zelfde als de tools maar voor de ingredients
         console.log(`Selected ingredient: ${ingredient.name}`);
     };
 
@@ -110,6 +120,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const hideScreens = function() {
         gameOverScreen.classList.add('hidden');
         victoryScreen.classList.add('hidden');
+        startScreen.classList.add('hidden');
+    };
+
+    const showGameElements = function() {
+        header.classList.remove('hidden');
+        gameContainer.classList.remove('hidden');
     };
 
     toolsButton.addEventListener('click', function() {
@@ -137,5 +153,13 @@ document.addEventListener('DOMContentLoaded', () => {
         startGame();
     });
 
-    startGame();
+    startButton.addEventListener('click', function() {
+        hideScreens();
+    });
+
+    proceedButton.addEventListener('click', function() {
+        startGame(); 
+        proceed();
+    });
+
 });

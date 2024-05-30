@@ -7,24 +7,24 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
+    <header class="hidden">
         <h1>Berghoff Cooking Game</h1>
     </header>
-    <div id="game-container">
+    <div id="game-container" class="hidden">
         <div id="info">
             <div id="timer">Time: 60</div>
             <div id="score">Score: 0</div>
         </div>
         <main>
-            <div id="game-board"></div> <!--Hier zal het spel zelf komen, ons "canvas" zeg maar-->
-            <div id="control-panel"> <!--Dit is hoe je alles kunt besturen-->
-                <button id="tools-button">Tools</button>
-                <button id="ingredients-button">Ingredients</button>
-                <div id="tools-menu" class="hidden">
-                    <!-- Hier zullen dus die tools aangemaakt worden, messen potten pannen -->
+            <div id="game-board"></div>
+            <div id="control-panel">
+                <div id="tools">
+                    <button id="tools-button">Tools</button>
+                    <div id="tools-menu" class="hidden"></div>
                 </div>
-                <div id="ingredients-menu" class="hidden">
-                    <!-- Alle ingredienten komen hier, moeten wel nog een gerecht kiezen -->
+                <div id="ingredients">
+                    <button id="ingredients-button">Ingredients</button>
+                    <div id="ingredients-menu" class="hidden"></div>
                 </div>
             </div>
         </main>
@@ -40,6 +40,16 @@
             <button id="victory-restart-button">Restart</button>
         </div>
     </div>
+    <div id="start-screen">  
+        <h2>Welcome to the Berghoff Cooking Game!</h2>  
+        <button id="start-button">Start Game</button>
+    </div>
+    <div id="explanation"> 
+        <h2>Game Instructions</h2>
+        <p>Use the tools and ingredients to cook the dish within the time limit. Select the tools and ingredients from the menus and follow the recipes to complete the dish. Good luck!</p>
+        <button id="proceed-button">Proceed</button>
+    </div>
+    
     <script src="/script.js"></script>
 </body>
 </html>
