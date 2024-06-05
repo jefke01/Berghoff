@@ -21,12 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let timeLeft;
     let score;
     let timer;
-    let currentIngredients;
+    let draggedElement = null;
 
     const tools = [
-        { name: 'Chef Knife', img: 'knife.png', detail: 'A sharp knife for cutting ingredients with precision.' },
+        { name: 'Chef Knife', img: 'issa_knife.png', detail: 'A sharp knife for cutting ingredients with precision.' },
         { name: 'Cooking Pot', img: 'pot.png', detail: 'A pot for boiling and cooking various ingredients.' },
-        { name: 'Pan', img: 'pan.png', detail: 'A non stick pan excellent for cooking stuff without needing a fat.' },
+        { name: 'Pan', img: 'pan.png', detail: 'A non-stick pan excellent for cooking stuff without needing fat.' },
     ];
 
     const ingredients = [
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Garlic', img: 'garlic.png' },
     ];
 
-    const startGame = function() {
+    const startGame = () => {
         timeLeft = 60;
         score = 0;
         currentLevel = 0;
@@ -45,14 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
         loadMenus();
         startTimer();
         showGameElements();
+        clearGameBoard();
     };
 
-    const startTimer = function() {
+    const startTimer = () => {
         clearInterval(timer);
         timer = setInterval(updateTimer, 1000);
     };
 
-    const updateTimer = function() {
+    const updateTimer = () => {
         if (timeLeft > 0) {
             timeLeft--;
             updateTimerDisplay();
@@ -62,104 +63,141 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const updateTimerDisplay = function() {
+    const updateTimerDisplay = () => {
         timerElement.textContent = `Time: ${timeLeft}`;
     };
 
-    const updateScoreDisplay = function() {
+    const updateScoreDisplay = () => {
         scoreElement.textContent = `Score: ${score}`;
     };
 
-    const proceed = function() {
+    const proceed = () => {
         const explanationChildren = explanationScreen.children;
         for (let i = 0; i < explanationChildren.length; i++) {
             explanationChildren[i].classList.add('hidden');
         }
     };
 
-    const loadMenus = function() {
+    const loadMenus = () => {
         toolsMenu.innerHTML = '';
         ingredientsMenu.innerHTML = '';
 
         tools.forEach(tool => {
             const toolElement = document.createElement('div');
             toolElement.classList.add('menu-item');
-            toolElement.textContent = tool.name;
-            toolElement.setAttribute('data-detail', tool.detail);
-
+            
+            const toolImage = document.createElement('img');
+            toolImage.src = tool.img;
+            toolImage.alt = tool.name;
+            toolImage.classList.add('tool-image');
+            toolImage.draggable = true;
+            toolElement.appendChild(toolImage);
+            
             const tooltip = document.createElement('div');
             tooltip.classList.add('tooltip');
             tooltip.textContent = tool.detail;
             toolElement.appendChild(tooltip);
 
-            toolElement.addEventListener('click', () => selectTool(tool));
+            toolImage.addEventListener('dragstart', dragStart);
             toolsMenu.appendChild(toolElement);
         });
 
         ingredients.forEach(ingredient => {
             const ingredientElement = document.createElement('div');
             ingredientElement.classList.add('menu-item');
-            ingredientElement.textContent = ingredient.name;
-            ingredientElement.addEventListener('click', () => selectIngredient(ingredient));
+            
+            const ingredientImage = document.createElement('img');
+            ingredientImage.src = ingredient.img;
+            ingredientImage.alt = ingredient.name;
+            ingredientImage.classList.add('ingredient-image');
+            ingredientImage.draggable = true;
+            ingredientElement.appendChild(ingredientImage);
+
+            ingredientImage.addEventListener('dragstart', dragStart);
             ingredientsMenu.appendChild(ingredientElement);
         });
+
+        gameBoard.addEventListener('dragover', dragOver);
+        gameBoard.addEventListener('drop', drop);
     };
 
-    const selectTool = function(tool) {
+    const selectTool = (tool) => {
         console.log(`Selected tool: ${tool.name}`);
     };
 
-    const selectIngredient = function(ingredient) {
+    const selectIngredient = (ingredient) => {
         console.log(`Selected ingredient: ${ingredient.name}`);
     };
 
-    const gameOver = function() {
+    const gameOver = () => {
         gameOverScreen.classList.remove('hidden');
     };
 
-    const hideScreens = function() {
+    const hideScreens = () => {
         gameOverScreen.classList.add('hidden');
         victoryScreen.classList.add('hidden');
         startScreen.classList.add('hidden');
     };
 
-    const showGameElements = function() {
+    const showGameElements = () => {
         header.classList.remove('hidden');
         gameContainer.classList.remove('hidden');
     };
 
-    toolsButton.addEventListener('click', function() {
-        toolsMenu.classList.toggle('hidden');
+    const dragStart = (e) => {
+        draggedElement = e.target;
+        setTimeout(() => e.target.classList.add('hide'), 0);
+    };
+    const clearGameBoard = () => {
+        gameBoard.innerHTML = '';
+    };
+    const dragOver = (e) => {
+        e.preventDefault();
+    };
+
+    const drop = (e) => {
+        e.preventDefault();
+        draggedElement.classList.remove('hide');
+        gameBoard.appendChild(draggedElement);
+        draggedElement.style.position = 'absolute';
+        draggedElement.style.left = `${e.clientX - gameBoard.offsetLeft - draggedElement.width / 2 -50}px`;
+        draggedElement.style.top = `${e.clientY - gameBoard.offsetTop - draggedElement.height / 2 -100}px`;
+        draggedElement = null;
+    };
+
+    toolsButton.addEventListener('click', () => {
+        toolsMenu.classList.remove('hidden');
         ingredientsMenu.classList.add('hidden');
     });
 
-    ingredientsButton.addEventListener('click', function() {
-        ingredientsMenu.classList.toggle('hidden');
+    ingredientsButton.addEventListener('click', () => {
+        ingredientsMenu.classList.remove('hidden');
         toolsMenu.classList.add('hidden');
     });
 
-    restartButton.addEventListener('click', function() {
+    restartButton.addEventListener('click', () => {
         hideScreens();
         startGame();
     });
 
-    gameOverRestartButton.addEventListener('click', function() {
+    gameOverRestartButton.addEventListener('click', () => {
         hideScreens();
         startGame();
     });
 
-    victoryRestartButton.addEventListener('click', function() {
+    victoryRestartButton.addEventListener('click', () => {
         hideScreens();
         startGame();
     });
 
-    startButton.addEventListener('click', function() {
+    startButton.addEventListener('click', () => {
         hideScreens();
     });
 
-    proceedButton.addEventListener('click', function() {
+    proceedButton.addEventListener('click', () => {
         startGame(); 
         proceed();
     });
-
 });
+
+
