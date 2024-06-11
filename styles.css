@@ -40,7 +40,7 @@ main {
     background-color: white;
     border: 1px solid #ccc;
     position: relative;
-    background-image: url(#); /*Hier kunnen we een achtergrond invoegen voor ons spel?
+    background-image: url(./kookplaat.webp); /*Hier kunnen we een achtergrond invoegen voor ons spel?
                                                 heb wel nog geen.*/
     background-size: cover; 
     background-position: center; 

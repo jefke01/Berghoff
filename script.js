@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const tools = [
         { name: 'Chef Knife', img: 'issa_knife.png', detail: 'A sharp knife for cutting ingredients with precision.' },
         { name: 'Cooking Pot', img: 'pot.png', detail: 'A pot for boiling and cooking various ingredients.' },
-        { name: 'Pan', img: 'pan.png', detail: 'A non-stick pan excellent for cooking stuff without needing fat.' },
-    ];
+        { name: 'Pan', img: 'download.jpeg', detail: 'A non-stick pan excellent for cooking stuff without needing fat.' },
+    ];                      /*hier*/
 
     const ingredients = [
         { name: 'Tomato', img: 'tomato.png' },
