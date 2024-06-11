@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const proceedButton = document.querySelector('#proceed-button');
     const header = document.querySelector('header');
     const gameContainer = document.querySelector('#game-container');
+    const platformen = document.querySelector('#platformen');
 
     let timeLeft;
     let score;
@@ -26,13 +27,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const tools = [
         { name: 'Chef Knife', img: 'issa_knife.png', detail: 'A sharp knife for cutting ingredients with precision.' },
         { name: 'Cooking Pot', img: 'pot.png', detail: 'A pot for boiling and cooking various ingredients.' },
-        { name: 'Pan', img: 'download.jpeg', detail: 'A non-stick pan excellent for cooking stuff without needing fat.' },
+        { name: 'Pan', img: 'download.png', detail: 'A non-stick pan excellent for cooking stuff without needing fat.' },
+        { name: 'Cutting Board', img: 'snijplank.png', detail: 'Double sided cutting board perfect for cutting fresh food'}
     ];                      /*hier*/
 
     const ingredients = [
         { name: 'Tomato', img: 'tomato.png' },
         { name: 'Onion', img: 'onion.png' },
         { name: 'Garlic', img: 'garlic.png' },
+        { name: 'Meat', img: 'rundergehakt.png' },
+        { name: 'Spaghetti', img: 'spaghetti.png' }
     ];
 
     const startGame = () => {
@@ -85,14 +89,14 @@ document.addEventListener('DOMContentLoaded', () => {
         tools.forEach(tool => {
             const toolElement = document.createElement('div');
             toolElement.classList.add('menu-item');
-            
+
             const toolImage = document.createElement('img');
             toolImage.src = tool.img;
             toolImage.alt = tool.name;
             toolImage.classList.add('tool-image');
             toolImage.draggable = true;
             toolElement.appendChild(toolImage);
-            
+
             const tooltip = document.createElement('div');
             tooltip.classList.add('tooltip');
             tooltip.textContent = tool.detail;
@@ -105,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ingredients.forEach(ingredient => {
             const ingredientElement = document.createElement('div');
             ingredientElement.classList.add('menu-item');
-            
+
             const ingredientImage = document.createElement('img');
             ingredientImage.src = ingredient.img;
             ingredientImage.alt = ingredient.name;
@@ -195,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     proceedButton.addEventListener('click', () => {
-        startGame(); 
+        startGame();
         proceed();
     });
 });

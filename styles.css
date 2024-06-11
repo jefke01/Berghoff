@@ -29,29 +29,71 @@ header {
 
 main {
     display: flex;
+    flex-direction: row-reverse;
     justify-content: space-between;
-    align-items: flex-start;
     margin: 1rem 0;
+    background-image: url("https://quasi-design.co/page_2.png");
+    background-position: center;
+    max-width: 90%;
+}
+
+#platformen {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#table {
+    display: block;
+    height: 300px;
+}
+
+.game {
+    display: flex;
+    width: 60vw;
+    flex: 1;
 }
 
 #game-board {
-    width: 70%;
-    height: 600px;
+    width: 100%;
+    height: 700px;
     background-color: white;
     border: 1px solid #ccc;
     position: relative;
-    background-image: url(./kookplaat.webp); /*Hier kunnen we een achtergrond invoegen voor ons spel?
-                                                heb wel nog geen.*/
-    background-size: cover; 
-    background-position: center; 
+    background-image: url(./kookplaat.jpg);
+    background-position: center;
 }
 
 #control-panel {
-    width: 30%;
+    width: 40%;
     background-color: #45a049;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.recipe {
+    display: flex;
+    flex-direction: column;
+    max-width: 40vw;
+    flex: 1;
+}
+
+.recipe ul {
+    margin: 0;
+    padding: 0;
+}
+
+.recipe div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.recipe li {
+    list-style-type: none;
+    color: #f38926;
 }
 
 button {
@@ -108,7 +150,7 @@ button:hover {
     padding: 5px;
     position: absolute;
     z-index: 1;
-    bottom: 125%; 
+    bottom: 125%;
     left: 50%;
     margin-left: -60px;
     opacity: 0;
@@ -134,7 +176,8 @@ button:hover {
 #start-screen.hidden {
     display: none;
 }
-#start-screen{ 
+
+#start-screen {
     position: fixed;
     top: 0;
     left: 0;
@@ -149,7 +192,7 @@ button:hover {
     z-index: 10;
 }
 
-#explanation { 
+#explanation {
     position: fixed;
     top: 0;
     left: 0;
@@ -162,4 +205,8 @@ button:hover {
     justify-content: center;
     align-items: center;
     z-index: -1;
+}
+
+#info {
+    margin-top: 1rem;
 }
