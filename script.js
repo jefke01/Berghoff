@@ -122,13 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gameBoard.addEventListener('drop', drop);
     };
 
-    const selectTool = (tool) => {
-        console.log(`Selected tool: ${tool.name}`);
-    };
-
-    const selectIngredient = (ingredient) => {
-        console.log(`Selected ingredient: ${ingredient.name}`);
-    };
+    
 
     const gameOver = () => {
         gameOverScreen.classList.remove('hidden');
@@ -164,6 +158,59 @@ document.addEventListener('DOMContentLoaded', () => {
         draggedElement.style.left = `${e.clientX - gameBoard.offsetLeft - draggedElement.width / 2 -50}px`;
         draggedElement.style.top = `${e.clientY - gameBoard.offsetTop - draggedElement.height / 2 -100}px`;
         draggedElement = null;
+    };
+
+    const changeImageOnHover = (knife, target, newImage) => {
+        knife.addEventListener('dragover', e => {
+            if (draggedItem === knife) {
+                target.img = newImage;
+            }
+        });
+    };
+
+    const panInteractions = (ingredient, newPanImage) => {
+        ingredient.addEventListener('dragover', e => {
+            if (draggedItem === ingredient && pan.img.includes('pan_boven')) {
+                pan.img = newPanImage;
+                ingredient.style.display = 'none';
+            }
+        });
+    };
+    const setPanOnKookplaat = (pan, kookplaat, fixedImage) => {
+        kookplaat.addEventListener('dragover', e => {
+            e.preventDefault();
+            if (draggedItem === pan) {
+                pan.img = fixedImage;
+                pan.draggable = false;
+                kookplaat.appendChild(pan);
+            }
+        });
+    };
+
+    const setCookingPotOnKookplaat = (pot, kookplaat, fixedImage) => {
+        kookplaat.addEventListener('dragover', e => {
+            e.preventDefault();
+            if (draggedItem === pot) {
+                pot.draggable = false;
+                kookplaat.appendChild(pot);
+            }
+        });
+    };
+
+    cookingPot.addEventListener('dragover', e => {
+        if (draggedItem && draggedItem.name ==='spaghetti') {
+            cookingPot.classList.add('full');
+            draggedItem.style.display = 'none';
+        }
+    });
+
+    const combineCookingPotMetPan = (cookingPot, pan, finalImage) => {
+        pan.addEventListener('dragover', e => {
+            if (draggedItem === cookingPot && cookingPot.classList.contains('vol')) {
+                pan.img = finalImage;
+                cookingPot.style.display = 'none';
+            }
+        });
     };
 
     toolsButton.addEventListener('click', () => {
