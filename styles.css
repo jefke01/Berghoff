@@ -7,6 +7,9 @@ body {
 }
 
 #game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 90%;
     margin: auto;
     text-align: center;
@@ -23,6 +26,7 @@ header {
 #info {
     display: flex;
     justify-content: space-between;
+    width: 100%;
     padding: 0 1rem;
     font-size: 1.5rem;
 }
@@ -30,11 +34,12 @@ header {
 main {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: space-between;
+    justify-content: center;
     margin: 1rem 0;
     background-image: url("https://quasi-design.co/page_2.png");
     background-position: center;
-    max-width: 90%;
+    width: 700px;
+    height: 450px;
 }
 
 #platformen {
@@ -64,23 +69,15 @@ main {
     background-size: cover;
     
 }
-.snijplank {
-    width: 100%;
-    height: 900px;
-    background-color: white;
-    border: 1px solid #ccc;
-    position: relative;
-    background-image: url(./images/snijplank.jpg);
-    background-size: cover;
-}
 .tafel {
     width: 100%;
-    height: 100%;
+    height: 25%;
     background-color: white;
     border: 1px solid #ccc;
     position: relative;
     background-image: url(./images/tafel.png);
     background-size: cover;
+    
     
 }
 
@@ -95,7 +92,7 @@ main {
 .recipe {
     display: flex;
     flex-direction: column;
-    max-width: 40vw;
+    max-width: 30%;
     flex: 1;
 }
 
@@ -219,12 +216,12 @@ button:hover {
     width: 100%;
     height: 100%;
     color: black;
-    background: rgba(0, 0, 0, 0);
+    background: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: -1;
+    z-index: 1;
 }
 
 #info {

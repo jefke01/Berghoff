@@ -76,10 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const proceed = () => {
-        const explanationChildren = explanationScreen.children;
-        for (let i = 0; i < explanationChildren.length; i++) {
-            explanationChildren[i].classList.add('hidden');
-        }
+        explanationScreen.style.display = "none"
     };
 
     const loadMenus = () => {
