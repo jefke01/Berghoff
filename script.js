@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const gameBoard = document.querySelector('#game-board');
+    const gameBoard = document.querySelector('.kookplaat');
     const timerElement = document.querySelector('#timer');
     const scoreElement = document.querySelector('#score');
     const gameOverScreen = document.querySelector('#game-over');
@@ -25,22 +25,22 @@ document.addEventListener('DOMContentLoaded', () => {
     let draggedElement = null;
 
     const tools = [
-        { name: 'Chef Knife', img: 'issa_knife.png', detail: 'A sharp knife for cutting ingredients with precision.' },
-        { name: 'Cooking Pot', img: 'pot.png', detail: 'A pot for boiling and cooking various ingredients.' },
-        { name: 'Pan', img: 'download.png', detail: 'A non-stick pan excellent for cooking stuff without needing fat.' },
-        { name: 'Cutting Board', img: 'snijplank.png', detail: 'Double sided cutting board perfect for cutting fresh food'}
-    ];                      /*hier*/
+        { name: 'Chef Knife', img: './images/issa_knife.png', detail: 'A sharp knife for cutting ingredients with precision.' },
+        { name: 'Cooking Pot', img: './images/pot.png', detail: 'A pot for boiling and cooking various ingredients.' },
+        { name: 'Pan', img: './images/download.png', detail: 'A non-stick pan excellent for cooking stuff without needing fat.' },
+        { name: 'Cutting Board', img: './images/snijplank.png', detail: 'Double sided cutting board perfect for cutting fresh food'}
+    ];                    
 
     const ingredients = [
-        { name: 'Tomato', img: 'tomato.png' },
-        { name: 'Onion', img: 'onion.png' },
-        { name: 'Garlic', img: 'garlic.png' },
-        { name: 'Meat', img: 'rundergehakt.png' },
-        { name: 'Spaghetti', img: 'spaghetti.png' }
+        { name: 'Tomato', img: './images/tomato.png' },
+        { name: 'Onion', img: './images/onion.png' },
+        { name: 'Garlic', img: './images/garlic.png' },
+        { name: 'Meat', img: './images/rundergehakt.png' },
+        { name: 'Spaghetti', img: './images/spaghetti.png' }
     ];
 
     const startGame = () => {
-        timeLeft = 60;
+        timeLeft = 10000000000000000000;
         score = 0;
         currentLevel = 0;
         updateTimerDisplay();
