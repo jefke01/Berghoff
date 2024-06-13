@@ -18,26 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('header');
     const gameContainer = document.querySelector('#game-container');
     const platformen = document.querySelector('#platformen');
+    const tafel = document.querySelector('.tafel');
 
     let timeLeft;
     let score;
     let timer;
     let draggedElement = null;
-
-    const tools = [
-        { name: 'Chef Knife', img: './images/issa_knife.png', detail: 'A sharp knife for cutting ingredients with precision.' },
-        { name: 'Cooking Pot', img: './images/pot.png', detail: 'A pot for boiling and cooking various ingredients.' },
-        { name: 'Pan', img: './images/download.png', detail: 'A non-stick pan excellent for cooking stuff without needing fat.' },
-        { name: 'Cutting Board', img: './images/snijplank.png', detail: 'Double sided cutting board perfect for cutting fresh food'}
-    ];                    
-
-    const ingredients = [
-        { name: 'Tomato', img: './images/tomato.png' },
-        { name: 'Onion', img: './images/onion.png' },
-        { name: 'Garlic', img: './images/garlic.png' },
-        { name: 'Meat', img: './images/rundergehakt.png' },
-        { name: 'Spaghetti', img: './images/spaghetti.png' }
-    ];
 
     const startGame = () => {
         timeLeft = 10000000000000000000;
@@ -79,48 +65,23 @@ document.addEventListener('DOMContentLoaded', () => {
         explanationScreen.style.display = "none"
     };
 
+    const tools = document.querySelectorAll(".tool-image")
+    const ingredients = document.querySelectorAll(".ingredient-image")
+
     const loadMenus = () => {
-        toolsMenu.innerHTML = '';
-        ingredientsMenu.innerHTML = '';
-
+        
         tools.forEach(tool => {
-            const toolElement = document.createElement('div');
-            toolElement.classList.add('menu-item');
-
-            const toolImage = document.createElement('img');
-            toolImage.src = tool.img;
-            toolImage.alt = tool.name;
-            toolImage.classList.add('tool-image');
-            toolImage.draggable = true;
-            toolElement.appendChild(toolImage);
-
-            const tooltip = document.createElement('div');
-            tooltip.classList.add('tooltip');
-            tooltip.textContent = tool.detail;
-            toolElement.appendChild(tooltip);
-
-            toolImage.addEventListener('dragstart', dragStart);
-            toolsMenu.appendChild(toolElement);
+            tool.addEventListener('dragstart', dragStart);
         });
 
         ingredients.forEach(ingredient => {
-            const ingredientElement = document.createElement('div');
-            ingredientElement.classList.add('menu-item');
-
-            const ingredientImage = document.createElement('img');
-            ingredientImage.src = ingredient.img;
-            ingredientImage.alt = ingredient.name;
-            ingredientImage.classList.add('ingredient-image');
-            ingredientImage.draggable = true;
-            ingredientElement.appendChild(ingredientImage);
-
-            ingredientImage.addEventListener('dragstart', dragStart);
-            ingredientsMenu.appendChild(ingredientElement);
+            ingredient.addEventListener('dragstart', dragStart);
         });
 
-        gameBoard.addEventListener('dragover', dragOver);
-        gameBoard.addEventListener('drop', drop);
-    };
+        platformen.addEventListener('dragover', dragOver)
+        platformen.addEventListener('drop', drop)
+
+    }
 
     
 
@@ -153,65 +114,130 @@ document.addEventListener('DOMContentLoaded', () => {
     const drop = (e) => {
         e.preventDefault();
         draggedElement.classList.remove('hide');
-        gameBoard.appendChild(draggedElement);
+        draggedElement.classList.add("dropped-image")
+        platformen.appendChild(draggedElement);
         draggedElement.style.position = 'absolute';
-        draggedElement.style.left = `${e.clientX - gameBoard.offsetLeft - draggedElement.width / 2 -50}px`;
-        draggedElement.style.top = `${e.clientY - gameBoard.offsetTop - draggedElement.height / 2 -100}px`;
+        draggedElement.style.left = `${e.clientX - platformen.offsetLeft - draggedElement.width / 2 -48}px`;
+        draggedElement.style.top = `${e.clientY - platformen.offsetTop - draggedElement.height / 2 +90}px`;
         draggedElement = null;
     };
+    const drop_pan = (e) => {
+        e.preventDefault();
+        draggedElement.classList.remove('hide');
+        platformen.appendChild(draggedElement);
+        draggedElement.style.position = 'absolute';
+        draggedElement.style.left = `395px`;
+        draggedElement.style.top = `100px`;
+        draggedElement = null;
+    }
+
+
+    const knife = document.querySelector('#Chef-Knife')
+    const pot = document.querySelector('#Cooking-Pot')
+    const pan = document.querySelector('#Pan')
+    const board = document.querySelector('#Cutting-Board')
+    const tomato = document.querySelector('#Tomato')
+    const onion = document.querySelector('#Onion')
+    const garlic = document.querySelector('#Garlic')
+    const meat = document.querySelector('#Meat')
+    const spaghetti = document.querySelector('#Spaghetti')
+
 
     const changeImageOnHover = (knife, target, newImage) => {
         knife.addEventListener('dragover', e => {
-            if (draggedItem === knife) {
-                target.img = newImage;
+            try {
+                if (draggedElement === target) {
+                    target.src = newImage;
+                }
+            } catch (err) {
+                return
             }
         });
     };
+
+    changeImageOnHover(knife, tomato, "./images/gesneden_tomaat-removebg-preview.png")
+    changeImageOnHover(knife, onion, "./images/gesneden_ajuin-removebg-preview.png")
+    changeImageOnHover(knife, garlic, "./images/gesneden_look-removebg-preview.png")
 
     const panInteractions = (ingredient, newPanImage) => {
-        ingredient.addEventListener('dragover', e => {
-            if (draggedItem === ingredient && pan.img.includes('pan_boven')) {
-                pan.img = newPanImage;
+        pan.addEventListener('dragover', e => {
+            if (draggedElement === ingredient && (ingredient.src.includes('gesneden_') || ingredient.src.includes('runder')) && pan.src.includes('pan_')) {
+                pan.src = newPanImage;
                 ingredient.style.display = 'none';
             }
+            
         });
     };
+
     const setPanOnKookplaat = (pan, kookplaat, fixedImage) => {
         kookplaat.addEventListener('dragover', e => {
-            e.preventDefault();
-            if (draggedItem === pan) {
-                pan.img = fixedImage;
-                pan.draggable = false;
-                kookplaat.appendChild(pan);
+            try {
+                e.preventDefault();
+                if (draggedElement === pan) {
+                    pan.src = fixedImage;
+                    pan.draggable = false;
+                    kookplaat.addEventListener('drop', drop_pan)
+                    kookplaat.removeEventListener('drop', drop_pan)
+                }
+            } catch (err) {
+                return
             }
+            
         });
     };
 
-    const setCookingPotOnKookplaat = (pot, kookplaat, fixedImage) => {
+    setPanOnKookplaat(pan, gameBoard, "./images/pan_boven-removebg-preview.png")
+    panInteractions(tomato, "./images/pan_met_saus.png")
+    panInteractions(garlic, "./images/pan_met_saus.png")
+    panInteractions(onion, "./images/pan_met_saus.png")
+    panInteractions(meat, "./images/pan_met_bolognaise.png")
+
+    
+
+    const setCookingPotOnKookplaat = (pot, kookplaat) => {
         kookplaat.addEventListener('dragover', e => {
-            e.preventDefault();
-            if (draggedItem === pot) {
-                pot.draggable = false;
-                kookplaat.appendChild(pot);
+            try {
+                e.preventDefault();
+                if (draggedElement === pot) {
+                    pot.draggable = false;
+                    
+                    
+                }
+            } catch (err) {
+                return
             }
+            
         });
     };
 
-    cookingPot.addEventListener('dragover', e => {
-        if (draggedItem && draggedItem.name ==='spaghetti') {
-            cookingPot.classList.add('full');
-            draggedItem.style.display = 'none';
-        }
-    });
+    const potInteractions = (ingredient) => {
+        pot.addEventListener('dragover', e => {
+            if (draggedElement === ingredient) {
+                ingredient.style.display = 'none';
+                pot.draggable = true
+                pot.classList.add('vol')
+            }
+            
+        });
+    };
+
+    setCookingPotOnKookplaat(pot, gameBoard)
+    potInteractions(spaghetti)
+
+    
 
     const combineCookingPotMetPan = (cookingPot, pan, finalImage) => {
         pan.addEventListener('dragover', e => {
-            if (draggedItem === cookingPot && cookingPot.classList.contains('vol')) {
-                pan.img = finalImage;
+            if (draggedElement === cookingPot && cookingPot.classList.contains('vol')) {
+                pan.src = finalImage;
                 cookingPot.style.display = 'none';
             }
         });
     };
+
+    combineCookingPotMetPan(pot, pan, "./images/pan_met_spaghetti.png")
+
+
 
     toolsButton.addEventListener('click', () => {
         toolsMenu.classList.remove('hidden');
@@ -246,6 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startGame();
         proceed();
     });
+
 });
 
 

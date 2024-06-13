@@ -1,93 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berghoff Kook spelletje</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header class="hidden">
-        <h1>Berghoff Cooking Game</h1>
-    </header>
-    <div id="game-container" class="hidden">
-        <div id="info">
-            <div id="timer">Time: 60</div>
-            <div id="score">Score: 0</div>
-        </div>
-        <main>
-            <div class="game">
-                <div id="platformen">
-                    <div class="kookplaat"></div>
-                    <div class="tafel"></div>
-                    
-                    
-                </div>
-                <div id="control-panel">
-                    <div id="tools">
-                        <button id="tools-button">Tools</button>
-                        <div id="tools-menu" class="hidden"></div>
-                    </div>
-                    <div id="ingredients">
-                        <button id="ingredients-button">Ingredients</button>
-                        <div id="ingredients-menu" class="hidden"></div>
-                    </div>
-                </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Berghoff Kook spelletje</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <header class="hidden">
+            <h1>Berghoff Cooking Game</h1>
+        </header>
+        <div id="game-container" class="hidden">
+            <div id="info">
+                <div id="timer">Time: 60</div>
+                <div id="score">Score: 0</div>
             </div>
-            <div class="recipe">
-                <h1>Spaghetti Bolognese</h1>
-                <div>
-                    <h2>Ingrediënten</h2>
-                    <ul>
-                        <li>Uien</li>
-                        <li>Tomaat</li>
-                        <li>Look</li>
-                        <li>Spaghetti</li>
-                        <li>Rundergehakt</li>
-                    </ul>
+            <main>
+                <div class="game">
+                    <div id="platformen">
+                        <div class="kookplaat"></div>
+                        <div class="tafel"></div>
+                    </div>
+                    <div id="control-panel">
+                        <div id="tools">
+                            <button id="tools-button">Tools</button>
+                            <div id="tools-menu" class="hidden">
+                                <div  class="menu-item">
+                                    <img id="Chef-Knife" class="tool-image"
+                                        src="./images/issa_knife.png"
+                                        alt="Chef-Knife" draggable="true">
+                                    <div class="tooltip">A sharp knife for
+                                        cutting ingredients with
+                                        precision.</div>
+                                </div>
+                                <div  class="menu-item">
+                                    <img id="Cooking-Pot" class="tool-image"
+                                        src="./images/pot.png"
+                                        alt="Cooking-Pot" draggable="true">
+                                    <div class="tooltip">A pot for boiling and cooking various ingredients.</div>
+                                </div>
+                                <div  class="menu-item">
+                                    <img id="Pan" class="tool-image"
+                                        src="./images/download.png"
+                                        alt="Pan" draggable="true">
+                                    <div class="tooltip">A non-stick pan excellent for cooking stuff without needing fat.</div>
+                                </div>
+                                <div  class="menu-item">
+                                    <img id="Plate" class="tool-image"
+                                        src="./images/bord.png"
+                                        alt="Empty plate" draggable="true">
+                                    <div class="tooltip">Empty plate ready to eat amazing spaghetti out of.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="ingredients">
+                            <button id="ingredients-button">Ingredients</button>
+                            <div id="ingredients-menu" class="hidden">
+                                <div  class="menu-item">
+                                    <img id="Tomato" class="ingredient-image"
+                                        src="./images/tomato.png"
+                                        alt="Tomato" draggable="true">
+                                </div>
+                                <div  class="menu-item">
+                                    <img id="Onion" class="ingredient-image"
+                                        src="./images/onion.png"
+                                        alt="Onion" draggable="true">
+                                </div>
+                                <div class="menu-item">
+                                    <img id="Garlic" class="ingredient-image"
+                                        src="./images/garlic.png"
+                                        alt="Garlic" draggable="true">
+                                </div>
+                                <div class="menu-item">
+                                    <img id="Meat" class="ingredient-image"
+                                        src="./images/rundergehakt.png"
+                                        alt="Meat" draggable="true">
+                                </div>
+                                <div class="menu-item">
+                                    <img id="Spaghetti" class="ingredient-image"
+                                        src="./images/spaghetti.png"
+                                        alt="Spaghetti" draggable="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <h2>Stappenplan</h2>
-                    <ul class="stappen">
-                        <li>Stap1: Snij de tomaat</li>
-                        <li>Stap2: Pan op het vuur</li>
-                        <li>Stap3: Tomaat in de pan</li>
-                        <li>Stap4: Zet het vuur aan</li>
-                        <li>Stap4: Snij look en ajuin</li>
-                        <li>Stap5: Gooi die ook in de pan</li>
-                        <li>Stap6: Gehakt in de pan</li>
-                        <li>Stap7: Vul een kookpot met water</li>
-                        <li>Stap8: Zet deze op het vuur</li>
-                        <li>Stap9: Vuur aan</li>
-                        <li>Stap10: Spaghetti in de pot</li>
-                        <li>Stap11: Serveer je pasta</li>
-                    </ul>
+                <div class="recipe">
+                    <h1>Spaghetti Bolognese</h1>
+                    <div>
+                        <h2>Ingrediënten</h2>
+                        <ul>
+                            <li>Uien</li>
+                            <li>Tomaat</li>
+                            <li>Look</li>
+                            <li>Spaghetti</li>
+                            <li>Rundergehakt</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2>Stappenplan</h2>
+                        <ul class="stappen">
+                            <li>Stap1: Snij de tomaat</li>
+                            <li>Stap2: Pan op het vuur</li>
+                            <li>Stap3: Tomaat in de pan</li>
+                            <li>Stap4: Zet het vuur aan</li>
+                            <li>Stap4: Snij look en ajuin</li>
+                            <li>Stap5: Gooi die ook in de pan</li>
+                            <li>Stap6: Gehakt in de pan</li>
+                            <li>Stap7: Vul een kookpot met water</li>
+                            <li>Stap8: Zet deze op het vuur</li>
+                            <li>Stap9: Vuur aan</li>
+                            <li>Stap10: Spaghetti in de pot</li>
+                            <li>Stap11: Serveer je pasta</li>
+                        </ul>
+                    </div>
                 </div>
+            </main>
+            <footer>
+                <button id="restart-button">Restart game</button>
+            </footer>
+            <div id="game-over" class="hidden">
+                <h2>Game Over</h2>
+                <button id="game-over-restart-button">Restart</button>
             </div>
-        </main>
-        <footer>
-            <button id="restart-button">Restart game</button>
-        </footer>
-        <div id="game-over" class="hidden">
-            <h2>Game Over</h2>
-            <button id="game-over-restart-button">Restart</button>
+            <div id="victory" class="hidden">
+                <h2>Dish Completed!</h2>
+                <button id="victory-restart-button">Restart</button>
+            </div>
         </div>
-        <div id="victory" class="hidden">
-            <h2>Dish Completed!</h2>
-            <button id="victory-restart-button">Restart</button>
+        <div id="start-screen">
+            <h2>Welcome to the Berghoff Cooking Game!</h2>
+            <button id="start-button">Start Game</button>
         </div>
-    </div>
-    <div id="start-screen">  
-        <h2>Welcome to the Berghoff Cooking Game!</h2>  
-        <button id="start-button">Start Game</button>
-    </div>
-    <div id="explanation"> 
-        <h2>Game Instructions</h2>
-        <p>Use the tools and ingredients to cook the dish within the time limit. Select the tools and ingredients from the menus and follow the recipes to complete the dish. Good luck!</p>
-        <button id="proceed-button">Proceed</button>
-    </div>
-    
-    <script src="/script.js"></script>
-    test
-</body>
+        <div id="explanation">
+            <h2>Game Instructions</h2>
+            <p>Use the tools and ingredients to cook the dish within the time
+                limit. Select the tools and ingredients from the menus and
+                follow the recipes to complete the dish. Good luck!</p>
+            <button id="proceed-button">Proceed</button>
+        </div>
+
+        <script src="/script.js"></script>
+        test
+    </body>
 </html>
