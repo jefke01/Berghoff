@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const gameBoard = document.querySelector('.kookplaat');
     const timerElement = document.querySelector('#timer');
-    const scoreElement = document.querySelector('#score');
     const gameOverScreen = document.querySelector('#game-over');
     const victoryScreen = document.querySelector('#victory');
     const restartButton = document.querySelector('#restart-button');
@@ -21,16 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const tafel = document.querySelector('.tafel');
 
     let timeLeft;
-    let score;
     let timer;
     let draggedElement = null;
 
     const startGame = () => {
-        timeLeft = 10000000000000000000;
-        score = 0;
-        currentLevel = 0;
+        timeLeft = 90;
         updateTimerDisplay();
-        updateScoreDisplay();
         hideScreens();
         loadMenus();
         startTimer();
@@ -55,10 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const updateTimerDisplay = () => {
         timerElement.textContent = `Time: ${timeLeft}`;
-    };
-
-    const updateScoreDisplay = () => {
-        scoreElement.textContent = `Score: ${score}`;
     };
 
     const proceed = () => {
@@ -117,19 +108,18 @@ document.addEventListener('DOMContentLoaded', () => {
         draggedElement.classList.add("dropped-image")
         platformen.appendChild(draggedElement);
         draggedElement.style.position = 'absolute';
-        draggedElement.style.left = `${e.clientX - platformen.offsetLeft - draggedElement.width / 2 -48}px`;
-        draggedElement.style.top = `${e.clientY - platformen.offsetTop - draggedElement.height / 2 +90}px`;
+        if (draggedElement === pan) {
+            draggedElement.style.left = `360px`;
+            draggedElement.style.top = `75px`;
+        } else if (draggedElement === pot) {
+            draggedElement.style.left = `120px`;
+            draggedElement.style.top = `80px`;
+        } else {
+            draggedElement.style.left = `${e.clientX - platformen.offsetLeft - draggedElement.width / 2 -48}px`;
+            draggedElement.style.top = `${e.clientY - platformen.offsetTop - draggedElement.height / 2 +90}px`;    
+        }
         draggedElement = null;
     };
-    const drop_pan = (e) => {
-        e.preventDefault();
-        draggedElement.classList.remove('hide');
-        platformen.appendChild(draggedElement);
-        draggedElement.style.position = 'absolute';
-        draggedElement.style.left = `395px`;
-        draggedElement.style.top = `100px`;
-        draggedElement = null;
-    }
 
 
     const knife = document.querySelector('#Chef-Knife')
@@ -141,13 +131,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const garlic = document.querySelector('#Garlic')
     const meat = document.querySelector('#Meat')
     const spaghetti = document.querySelector('#Spaghetti')
+    const bord = document.querySelector('#Plate')
 
 
     const changeImageOnHover = (knife, target, newImage) => {
         knife.addEventListener('dragover', e => {
             try {
                 if (draggedElement === target) {
-                    target.src = newImage;
+                    target.src = newImage
                 }
             } catch (err) {
                 return
@@ -161,23 +152,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const panInteractions = (ingredient, newPanImage) => {
         pan.addEventListener('dragover', e => {
-            if (draggedElement === ingredient && (ingredient.src.includes('gesneden_') || ingredient.src.includes('runder')) && pan.src.includes('pan_')) {
-                pan.src = newPanImage;
-                ingredient.style.display = 'none';
+            if (draggedElement === ingredient && ingredient.src.includes('gesneden_') && pan.src.includes('pan_')) {
+                pan.src = newPanImage
+                ingredient.style.display = 'none'
             }
-            
+            if (draggedElement === ingredient && ingredient.src.includes('runder') && pan.src.includes('pan_met')) {
+                pan.src = newPanImage
+                ingredient.style.display = 'none'
+            }
         });
     };
 
-    const setPanOnKookplaat = (pan, kookplaat, fixedImage) => {
+    const setPanOnKookplaat = (pan, kookplaat) => {
         kookplaat.addEventListener('dragover', e => {
             try {
                 e.preventDefault();
                 if (draggedElement === pan) {
-                    pan.src = fixedImage;
-                    pan.draggable = false;
-                    kookplaat.addEventListener('drop', drop_pan)
-                    kookplaat.removeEventListener('drop', drop_pan)
+                    pan.draggable = false
+                    
                 }
             } catch (err) {
                 return
@@ -186,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    setPanOnKookplaat(pan, gameBoard, "./images/pan_boven-removebg-preview.png")
+    setPanOnKookplaat(pan, gameBoard)
     panInteractions(tomato, "./images/pan_met_saus.png")
     panInteractions(garlic, "./images/pan_met_saus.png")
     panInteractions(onion, "./images/pan_met_saus.png")
@@ -197,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const setCookingPotOnKookplaat = (pot, kookplaat) => {
         kookplaat.addEventListener('dragover', e => {
             try {
-                e.preventDefault();
+                e.preventDefault()
                 if (draggedElement === pot) {
                     pot.draggable = false;
                     
@@ -230,6 +222,8 @@ document.addEventListener('DOMContentLoaded', () => {
         pan.addEventListener('dragover', e => {
             if (draggedElement === cookingPot && cookingPot.classList.contains('vol')) {
                 pan.src = finalImage;
+                pan.draggable = true;
+                pan.removeEventListener('drop', drop)
                 cookingPot.style.display = 'none';
             }
         });
@@ -237,6 +231,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     combineCookingPotMetPan(pot, pan, "./images/pan_met_spaghetti.png")
 
+    const serveren = (bord, pan, klaar) => {
+        bord.addEventListener('dragover', e => {
+            if (draggedElement === pan && pan.src.includes("pan_met_sp")) {
+                bord.src = klaar
+                pan.style.display = 'none'
+                victoryScreen.classList.remove('hidden')
+            }
+        })
+    }
+
+    serveren(bord, pan, "./images/klaar-removebg-preview.png")
 
 
     toolsButton.addEventListener('click', () => {
@@ -251,17 +256,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     restartButton.addEventListener('click', () => {
         hideScreens();
-        startGame();
+        location.reload();
     });
 
     gameOverRestartButton.addEventListener('click', () => {
         hideScreens();
-        startGame();
+        location.reload();
     });
 
     victoryRestartButton.addEventListener('click', () => {
         hideScreens();
-        startGame();
+        location.reload();
     });
 
     startButton.addEventListener('click', () => {
